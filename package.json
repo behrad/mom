@@ -1,0 +1,21 @@
+{
+  "name": "mom",
+  "version": "1.0.0",
+  "description": "my node.js MOM playground",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "behrad",
+  "license": "ISC",
+  "dependencies": {
+    "amqp-connection-manager": "^1.3.5",
+    "amqplib": "^0.5.1",
+    "coworkers": "^0.7.2",
+    "kafka-node": "^1.0.7",
+    "mqtt": "^2.1.3",
+    "no-kafka": "^3.0.1",
+    "rabbot": "^1.0.6",
+    "rabbus": "^0.8.2"
+  }
+}
