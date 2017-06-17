@@ -19,7 +19,7 @@ rabbit
 
     const QueueName = 'testQueue';
     // const QueueName = 'mqtt-subscription-behradMqttqos1';
-    channel.assertQueue(QueueName)
+    channel.assertQueue(QueueName, {durable: false})
       .then(q => console.log(`Assert Queue %j`, q))
       .catch(console.error);
 
@@ -40,7 +40,12 @@ rabbit
     // };
 
     const id = Date.now()+'';
-    return channel.sendToQueue('test.'+id+'.queue', new Buffer(`Message number ${id}`), {messageId: id});
+    return channel.sendToQueue(QueueName, new Buffer(`Message number ${id}`), {messageId: id});
   })
-  .then(a1 => console.log(`Sent message %j`, a1))
+  // NB: `sentToQueue` and `publish` both return a boolean
+  // indicating whether it's OK to send again straight away, or
+  // (when `false`) that you should wait for the event `'drain'`
+  // to fire before writing again. We're just doing the one write,
+  // so we'll ignore it.
+  .then(_sendOk => console.log(`Sent message %j`, _sendOk))
   .catch(console.error);

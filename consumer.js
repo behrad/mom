@@ -3,7 +3,7 @@ const kafka = require('kafka-node');
 const client = new kafka.Client('10.10.151.27:2181', 'my-test-nodejs-client-con');
 
 const consumer = new kafka.Consumer(client, [{
-  topic: 'topicName'
+  topic: 'topic.*.name'
 }], {
   groupId: 'kafka-node-group-1',
   id: 'my-consumer-id',

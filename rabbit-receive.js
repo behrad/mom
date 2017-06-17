@@ -26,7 +26,7 @@ rabbit
 
     // const QueueName = 'mqtt-subscription-behradMqttqos1';
     // const QueueName = 'testQueue';
-    const QueueName = 'test.#.queue';
+    const QueueName = 'testQueue';
     channel.assertQueue(QueueName).then(q => console.log(`Queue %j`, q)).catch(console.error);
     channel.prefetch(4, false);
 
@@ -44,7 +44,7 @@ rabbit
       } else {
         console.warn(`WOW! message is null?`);
       }
-    })
-      .then(a1 => console.log(`We are consuming %j`, a1));
+    }, {noAck: true})
+      .then(_consumeOk => console.log(`We are consuming %j`, _consumeOk));
   })
   .catch(console.error);
