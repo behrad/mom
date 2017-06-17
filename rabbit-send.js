@@ -6,6 +6,8 @@ const host = 'amqp://admin:mqadminP@ssw0rd@10.10.151.27:5672';
 
 const rabbit = AMQP.connect(host);
 
+const concurrency = 1
+
 rabbit
   .then( connection => {
 
@@ -39,13 +41,20 @@ rabbit
     //   appId: ''
     // };
 
-    const id = Date.now()+'';
-    return channel.sendToQueue(QueueName, new Buffer(`Message number ${id}`), {messageId: id});
+    function send(){
+      const id = Date.now()+'';
+      channel.sendToQueue(QueueName, new Buffer(`Message number ${id}`), {messageId: id})
+        // NB: `sentToQueue` and `publish` both return a boolean
+        // indicating whether it's OK to send again straight away, or
+        // (when `false`) that you should wait for the event `'drain'`
+        // to fire before writing again. We're just doing the one write,
+        // so we'll ignore it.
+        .then(_sendOk => {
+          console.log(`Sent? %j`, _sendOk)
+          _sendOk && setTimeout(send, 1/(concurrency*1000))
+        })
+    }
+
+    send()
   })
-  // NB: `sentToQueue` and `publish` both return a boolean
-  // indicating whether it's OK to send again straight away, or
-  // (when `false`) that you should wait for the event `'drain'`
-  // to fire before writing again. We're just doing the one write,
-  // so we'll ignore it.
-  .then(_sendOk => console.log(`Sent message %j`, _sendOk))
   .catch(console.error);

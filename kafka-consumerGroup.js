@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// node kafka-consumerGroup.js -g g2
+
 const argv = require('yargs').argv
 const kafka = require('kafka-node');
 const ConsumerGroup = kafka.ConsumerGroup;

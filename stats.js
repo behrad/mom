@@ -5,6 +5,7 @@ module.exports = class Stats {
   constructor (opts = {}) {
     this.interval = (opts.interval*1000) || 2000
     this.keys = {}
+    this.i = 1;
     this.start()
   }
 
@@ -25,7 +26,7 @@ module.exports = class Stats {
     }
     const keyStr = keys.map(k => `${k}=${this.keys[k]}`).join(', ')
     const now = format(new Date)
-    console.log(`Stats[${now}] ${keyStr}`)
+    console.log(`Stats[${now}] ${keyStr} [${(this.interval/1000) * this.i++}s]`)
   }
 
 }

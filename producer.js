@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// node producer.js -r 1000
+
 const argv = require('yargs').argv
 const kafka = require('kafka-node');
 
