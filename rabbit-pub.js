@@ -5,8 +5,8 @@
 const argv = require('yargs').argv;
 const amqp = require('amqplib');
 
-// const host = 'amqp://admin:mqadminP@ssw0rd@10.10.151.27:5672';
-const host = 'amqp://admin:mqadminP@ssw0rd@10.10.101.115:5672';
+const host = 'amqp://admin:mqadminP@ssw0rd@10.10.151.27:5672';
+// const host = 'amqp://admin:mqadminP@ssw0rd@10.10.101.115:5672';
 // const host = 'amqp://admin:mqadminP@ssw0rd@10.10.101.116:5672';
 
 const durable = argv.d || false;
