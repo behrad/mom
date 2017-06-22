@@ -10,6 +10,7 @@ const host = 'amqp://admin:mqadminP@ssw0rd@10.10.151.27:5672';
 // const host = 'amqp://admin:mqadminP@ssw0rd@10.10.101.116:5672';
 
 const durable = argv.d || false;
+const persist = argv.p || false;
 const ex = argv.e || 'logs';
 const type = argv.t || 'fanout' // direct, topic
 const key = argv.k || '' // info
@@ -32,7 +33,7 @@ amqp.connect(host).then(function(conn) {
 
       function send() {
         let message = 'Hello World ' + Date.now();
-        const _sent = ch.publish(ex, key, Buffer.from(message), {persistent1: durable})
+        const _sent = ch.publish(ex, key, Buffer.from(message), {persistent: persist})
         // console.log("[x] Sent '%s'? ", message, _sent);
         s.inc('sent');
         _sent && setTimeout(send, 1/(concurrency/1000))

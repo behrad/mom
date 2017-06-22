@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // node rabbit-sub.js -e logs2 -t topic -k test.behrad.topic
-
+``
 const argv = require('yargs').argv;
 const amqp = require('amqplib');
 
@@ -13,12 +13,18 @@ const durable = argv.d || false;
 const exchange = argv.e || 'logs';
 const type = argv.t || 'fanout' // direct, topic
 const key = argv.k || '' // info
+let concurrency = 1 // prefetch
+if( argv.c !== undefined ) {
+  concurrency = argv.c;
+}
 
 const Stats = require('./stats')
 const s = new Stats({interval: 1})
 
 amqp.connect(host).then(function(conn) {
   process.once('SIGINT', _ => conn.close());
+
+  conn.on('error', console.error)
 
   return conn.createChannel().then(function(ch) {
     let ok = ch.assertExchange(exchange, type, {durable: durable});
@@ -31,7 +37,7 @@ amqp.connect(host).then(function(conn) {
       });
     });
     ok = ok.then(function(queue) {
-      // ch.prefetch(false)
+      ch.prefetch(concurrency);
       return ch.consume(queue, logMessage, {noAck: true});
     });
     return ok.then(function() {
