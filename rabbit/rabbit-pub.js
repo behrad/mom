@@ -17,7 +17,7 @@ const key = argv.k || '' // info
 
 const concurrency = argv.n || 1
 
-const Stats = require('./stats')
+const Stats = require('../stats')
 const s = new Stats({interval: 1})
 
 amqp.connect(host).then(function(conn) {

@@ -18,7 +18,7 @@ if( argv.c !== undefined ) {
   concurrency = argv.c;
 }
 
-const Stats = require('./stats')
+const Stats = require('../stats')
 const s = new Stats({interval: 1})
 
 amqp.connect(host).then(function(conn) {
