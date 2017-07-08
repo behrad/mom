@@ -11,7 +11,7 @@ const host = 'amqp://admin:mqadminP@ssw0rd@10.10.151.27:5672';
 
 const durable = argv.d || false;
 const exchange = argv.e || 'logs';
-const type = argv.t || 'fanout' // direct, topic
+const type = argv.t || 'topic' // direct, fanout, topic
 const key = argv.k || '' // info
 let concurrency = 1 // prefetch
 if( argv.c !== undefined ) {

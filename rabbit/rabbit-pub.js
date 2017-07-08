@@ -12,7 +12,7 @@ const host = 'amqp://admin:mqadminP@ssw0rd@10.10.151.27:5672';
 const durable = argv.d || false;
 const persist = argv.p || false;
 const ex = argv.e || 'logs';
-const type = argv.t || 'fanout' // direct, topic
+const type = argv.t || 'topic' // direct, fanout, topic
 const key = argv.k || '' // info
 
 const concurrency = argv.n || 1
