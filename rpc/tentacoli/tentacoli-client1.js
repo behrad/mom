@@ -37,5 +37,5 @@ function sendReq(done) {
 }
 
 
-const run = bench([sendReq], 100);
+const run = bench([sendReq], 1000);
 run(run);
