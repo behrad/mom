@@ -46,7 +46,7 @@ setInterval(_ => {
 //   publish()
 // }, 500)
 
-bench([publish], 4000)();
+bench([publish], 1000)();
 
 process.on('SIGINT', function() {
   // timer && clearInterval(timer);

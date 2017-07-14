@@ -12,6 +12,7 @@ function SomeSubscriber(){
     routingKey: "rabbus.test",
     queue: {
       name: 'rabbus-queue',
+      autoDelete: false,
       // noBatch: true,
       limit: 2000
     }
